@@ -13,6 +13,10 @@
                     Version = "v1",
                     Description = "Temporary interactive documentation for testing/demo"
                 });
+
+                c.CustomSchemaIds(type => type.FullName!
+                    .Replace("Coffeeg.", "")           // Optional: clean up your root namespace for nicer names
+                    .Replace(".", "-"));               // Replace dots with underscores (Swagger prefers this)
             });
 
             return services;
