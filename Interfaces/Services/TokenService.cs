@@ -12,12 +12,12 @@ namespace Coffeeg.Interfaces.Services
     {
         public async Task<string> CreateToken(User user)
         {
-            var tokenKey = config["TokenKey"] ?? throw new CoffeegMissingConfigurationException("Cannot find token key");
+            var tokenKey = config["JwtTokenSecret"] ?? throw new CoffeegMissingConfigurationException("Cannot find token key");
             if (tokenKey.Length < 64) throw new CoffeegInvalidaConfigurationException("Token key value needs to be >= 64 characters");
             var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(tokenKey));
 
-            var adminUserFresh = await userManager.FindByEmailAsync(user.Email);
-            var rolesNow = await userManager.GetRolesAsync(adminUserFresh);   // should work
+            var adminUserUpdated = await userManager.FindByEmailAsync(user.Email);
+            var rolesNow = await userManager.GetRolesAsync(adminUserUpdated);   // should work
 
             var claims = new List<Claim>
             {
