@@ -15,6 +15,8 @@ namespace Coffeeg
         {
             var builder = WebApplication.CreateBuilder(args);
 
+            builder.Services.AddSwaggerUI();
+
             builder.Services.AddDataContext(builder.Configuration); // configure ef and db provider 
 
             builder.Services.AddIdentityCore(); // configure asp identity
@@ -52,12 +54,19 @@ namespace Coffeeg
                 app.MapOpenApi();
             }
 
-            app.UseHttpsRedirection();
+            app.UseSwagger(); // Serves the OpenAPI JSON document
+            app.UseSwaggerUI(c =>
+            {
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API v1");
+                c.RoutePrefix = "swagger";
+
+                app.UseHttpsRedirection();
+            });
 
             app.UseExceptionHandler();
 
             app.UseAuthorization();
-            app.UseAuthentication();// this was omitted yet app auth worked?*
+            app.UseAuthentication(); // this was omitted yet app auth worked?*
 
             app.MapControllers();
 
