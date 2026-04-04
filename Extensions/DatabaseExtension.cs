@@ -9,7 +9,8 @@ namespace Coffeeg.Extensions
         {
             return services.AddDbContext<CoffeegDbContext>((serviceProvider, opts) =>
             {
-                var connectionString = config.GetConnectionString("DefaultConnection");
+                // var connectionString = config.GetConnectionString("DefaultConnection");
+                var connectionString = config.GetConnectionString("AZURE_SQL_CONNECTIONSTRING");
                 opts.UseSqlServer(connectionString);
             });
         }
