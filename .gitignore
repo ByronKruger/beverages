@@ -1,0 +1,14 @@
+
+# Ignore editor-related directory
+.vs/
+
+# Ignore generated content for builds and releases
+[Bb]in
+[Dd]ebug*/
+obj
+
+# Ignore environment-specific appsettings files with secrets
+**/appsettings.Development.json
+**/appsettings.local.json
+**/appsettings.*.json
+appsettings.json
