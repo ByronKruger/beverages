@@ -12,7 +12,7 @@ namespace Coffeeg.Extensions
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                 .AddJwtBearer(opt =>
                 {
-                    var tokenKey = config["JwtTokenSecret"] ?? throw new CoffeegMissingConfigurationException("Cannot find token key");
+                    var tokenKey = config["JwtTokenSecret"] ?? throw new CoffeegMissingConfigurationException(config["JwtTokenSecret"]);
                     // var tokenKey = config["TokenKey"] ?? throw new CoffeegMissingConfigurationException("Cannot find token key");
                     opt.TokenValidationParameters = new TokenValidationParameters
                     {
