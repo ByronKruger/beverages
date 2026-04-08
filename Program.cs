@@ -46,7 +46,20 @@ namespace Coffeeg
             builder.Services.AddExceptionHandler<GlobalExceptionHandler>();
             builder.Services.AddProblemDetails();
 
+            builder.Services.AddCors(options =>
+            {
+                options.AddPolicy("AllowAngular", policy =>
+                {
+                    policy.WithOrigins("https://agreeable-bush-021861810.7.azurestaticapps.net")  // or from App Setting
+                          .AllowAnyMethod()
+                          .AllowAnyHeader()
+                          .AllowCredentials(); // only if you need cookies/auth tokens
+                });
+            });
+
             var app = builder.Build();
+
+            app.UseCors("AllowAngular");  // Place AFTER UseRouting() but BEFORE UseEndpoints()
 
             // Configure the HTTP request pipeline.
             if (app.Environment.IsDevelopment())
